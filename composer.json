@@ -1,0 +1,28 @@
+{
+    "name": "clouds-flight/easy-consul",
+    "description": "library for use consul http api",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "吴云祥",
+            "email": "1730848300@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Easy\\Consul\\": "src",
+            "Easy\\Consul\\Api\\" : "src/api",
+            "Easy\\Consul\\Helper\\" : "src/helper"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "require": {
+      "guzzlehttp/guzzle": "~6.0"
+    }
+   
+}
