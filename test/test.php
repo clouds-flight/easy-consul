@@ -2,7 +2,7 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 11:05:58
- * @LastEditTime: 2020-06-07 16:13:47
+ * @LastEditTime: 2020-06-07 16:17:09
  * @FilePath: /easy-consul/test/test.php
  */
 
@@ -106,7 +106,7 @@ var_dump($sessionHelper->destroy());
 $kvHelper=new KvHelper();
 $kvHelper->key='test';
 $kvHelper->value='1';
-$kvHelper->acquire=$sessionHelper->uuid;
+// $kvHelper->acquire=$sessionHelper->uuid;
 
 var_dump($kvHelper->put());
 
