@@ -56,7 +56,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
      $service->port=8000;  //服务端口
      $service->enableTagOverride=false;
      $service->check=[//健康检查
-            'interval' => '3s', //健康检查间隔时间，每隔10s，调用一次上面的URL
+            'interval' => '3s', //健康检查间隔时间，每隔3s，调用一次上面的URL
             'timeout'  => '1s',
             'tcp' =>"127.0.0.1:80" 
      ];
