@@ -1,6 +1,6 @@
 # easy-consul
 
-php封装的consul 完整新版 http api库，便捷的使用服务注册/发现、分布式锁、Kv存储
+php封装的consul 完整新版 http api客户端，便捷的使用服务注册/发现、分布式锁、Kv存储
 
 1.初始化配置
 
