@@ -147,8 +147,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
        public function set($config);
     }
     
-    Config类适用在常驻内存模式下使用，对于web类型的，更改配置对其他请求不会生效，可实现ConfigInterface，在初始化的时候传入 
-    
+    Config类适用在常驻内存模式下使用，对于web类型的，更改配置对其他请求不会生效，可实现ConfigInterface，初始化时传入
   
     
      
