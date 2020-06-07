@@ -2,28 +2,11 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 23:01:03
- * @LastEditTime: 2020-06-07 15:48:57
- * @FilePath: /src/ApiFactory.php
+ * @LastEditTime: 2020-06-07 16:14:03
+ * @FilePath: /easy-consul/src/ApiFactory.php
  */ 
 
 namespace Easy\Consul;
-
-use Easy\Consul\Api\Acl;
-use Easy\Consul\Api\Agent;
-use Easy\Consul\Api\Catalog;
-use Easy\Consul\Api\Config;
-use Easy\Consul\Api\Connect;
-use Easy\Consul\Api\Coordinate;
-use Easy\Consul\Api\DiscoveryChain;
-use Easy\Consul\Api\Event;
-use Easy\Consul\Api\Health;
-use Easy\Consul\Api\Kv;
-use Easy\Consul\Api\Operator;
-use Easy\Consul\Api\Query;
-use Easy\Consul\Api\Session;
-use Easy\Consul\Api\Snapshot;
-use Easy\Consul\Api\Status;
-use Easy\Consul\Api\Txn;
 
 use Easy\Consul\Config as ApiConfig;
 use Easy\Consul\Log;
@@ -32,11 +15,10 @@ use Exception;
 
 class ApiFactory
 {
-    private static $instance;
 
-    private $client;
+    private static $client;
 
-    public function __construct($cfg, ConfigObserver $observer = null, $log = null, $options = [])
+    public static function init($cfg, ConfigObserver $observer = null, $log = null, $options = [])
     {
         if(is_array($cfg))
         {
@@ -53,18 +35,16 @@ class ApiFactory
             $log = new Log();
         }
 
-        $client = Client::getInstance($config, $log, $options);
+        self::$client = Client::getInstance($config, $log, $options);
 
-        $this->client = $client;
-        self::$instance = $this;
     }
 
 
     public static function api($name)
     {
-        if (!empty(self::$instance)) {
+        if (!empty(self::$client)) {
             $full_name = '\\Easy\\Consul\\Api\\' . $name;
-            return new $full_name(self::$instance->client);
+            return new $full_name(self::$client);
         } else {
             throw new Exception("未实例化ApiFactory对象");
         }

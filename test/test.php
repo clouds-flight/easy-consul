@@ -2,7 +2,7 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 11:05:58
- * @LastEditTime: 2020-06-07 10:32:35
+ * @LastEditTime: 2020-06-07 16:13:47
  * @FilePath: /easy-consul/test/test.php
  */
 
@@ -46,80 +46,80 @@ class Observer implements ConfigObserver
 }
 
 
-new ApiFactory($c, new Observer());
+ApiFactory::init($c, new Observer());
 
 $lock = new LockHelper('test-lock', '1', '10s', []);
 $lock->lock();
 
 sleep(10);
 
-// $lock->renewLock();
+$lock->renewLock();
 
-// $lock->unlock();
-
-
-
-// $service=new ServiceHelper();
-
-// $service->id="test-server-1";
-// $service->name="test-server";
-// $service->address="127.0.0.1";
-// $service->port=80;
-// $service->enableTagOverride=false;
-// $service->check=[
-//     'interval' => '3s', //健康检查间隔时间，每隔10s，调用一次上面的URL
-//     'timeout'  => '1s',
-//     'tcp' =>"127.0.0.1:80"
-// ];
-
-
-// $service->register();
-
-// $service->healthServiceByName()[0];
-// $service->service();
-// $service->services();
-
-// sleep(5);
-
-// $service->deregister();
-
-
-// $sessionHelper=new SessionHelper();
-// $sessionHelper->lockDelay='15s';
-// $sessionHelper->name='my-service-lock';
-// $sessionHelper->ttl='30s';
-// $sessionHelper->Behavior='delete';
-
-// var_dump($sessionHelper->uuid=$sessionHelper->create()->ID);
-
-// var_dump($sessionHelper->get());
-
-// sleep(5);
-
-// $sessionHelper->renew();
-
-// $sessionHelper->get();
-
-// var_dump($sessionHelper->destroy());
-
-
-// $kvHelper=new KvHelper();
-// $kvHelper->key='test';
-// $kvHelper->value='1';
-// $kvHelper->acquire=$sessionHelper->uuid;
-
-// var_dump($kvHelper->put());
-
-// sleep(5);
-// $kvHelper->key='test';
-// var_dump($kvHelper->get());
-
-// sleep(60);
+$lock->unlock();
 
 
 
-// $kvHelper->value='1';
-// var_dump($kvHelper->put());
+$service=new ServiceHelper();
+
+$service->id="test-server-1";
+$service->name="test-server";
+$service->address="127.0.0.1";
+$service->port=80;
+$service->enableTagOverride=false;
+$service->check=[
+    'interval' => '3s', //健康检查间隔时间，每隔10s，调用一次上面的URL
+    'timeout'  => '1s',
+    'tcp' =>"127.0.0.1:80"
+];
 
 
-// var_dump($kvHelper->delete());
+$service->register();
+
+$service->healthServiceByName()[0];
+$service->service();
+$service->services();
+
+sleep(5);
+
+$service->deregister();
+
+
+$sessionHelper=new SessionHelper();
+$sessionHelper->lockDelay='15s';
+$sessionHelper->name='my-service-lock';
+$sessionHelper->ttl='30s';
+$sessionHelper->Behavior='delete';
+
+var_dump($sessionHelper->uuid=$sessionHelper->create()->ID);
+
+var_dump($sessionHelper->get());
+
+sleep(5);
+
+$sessionHelper->renew();
+
+$sessionHelper->get();
+
+var_dump($sessionHelper->destroy());
+
+
+$kvHelper=new KvHelper();
+$kvHelper->key='test';
+$kvHelper->value='1';
+$kvHelper->acquire=$sessionHelper->uuid;
+
+var_dump($kvHelper->put());
+
+sleep(5);
+$kvHelper->key='test';
+var_dump($kvHelper->get());
+
+sleep(60);
+
+
+
+$kvHelper->value='1';
+var_dump($kvHelper->put());
+
+
+var_dump($kvHelper->delete());

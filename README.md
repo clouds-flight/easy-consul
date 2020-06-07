@@ -17,7 +17,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
             ]
         ];
         
-     new ApiFactory($config);
+     ApiFactory::init($config);
      
      
      可配置多个consul地址，按先后顺序访问，若拒绝服务，将会使用后面的地址访问，并将不可访问的移到数组后面，触发配置更改事件，如需要对配置更改后进行其它处理（上报错误等），可通过实现ConfigObserver进行观察
@@ -44,7 +44,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
             ]
         ];
      
-     new ApiFactory($config,new Observer());
+     ApiFactory::init($c, new Observer());
      
      
   2.服务注册与发现
@@ -136,8 +136,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
     
     可通过实现日志接口自定义日志的输出方式，或增加ERROR处理
     初始化
-    new ApiFactory($config,new Observer()，实现LogInterface的对象);
-    
+    ApiFactory::init($c, new Observer()，实现LogInterface的对象);
     
     
     ConfigInterface：
@@ -148,7 +147,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
        public function set($config);
     }
     
-    Config类适用在常驻内存模式下使用，对于web类型的，更改配置对其他请求不会生效，可实现ConfigInterface，继承ApiFactory，重写构造方法，来使用自定义的ConfigInterface实现类
+    Config类适用在常驻内存模式下使用，对于web类型的，更改配置对其他请求不会生效，可实现ConfigInterface，在初始化的时候传入 
     
   
     
