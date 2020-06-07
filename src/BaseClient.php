@@ -2,7 +2,7 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-05 19:46:52
- * @LastEditTime: 2020-06-07 10:31:53
+ * @LastEditTime: 2020-06-07 16:52:58
  * @FilePath: /easy-consul/src/BaseClient.php
  */ 
 
@@ -67,6 +67,9 @@ class BaseClient extends GuzzleHttpClient
                             }
 
                             $result = true;
+                        }else{
+                           
+                            $this->clientLog->log(LogType::LOG,$options['base_uri'].$url.'请求失败'."\n".'error code : '.$code."\n".'content : '.$response->getReasonPhrase());
                         }
                         break;
                     }
@@ -85,6 +88,14 @@ class BaseClient extends GuzzleHttpClient
             //指定uri访问
             try {
                 $response = $this->request($method, $url, $options);
+                if(!empty($response))
+                {
+                    $code=$response->getStatusCode();
+                    if($code!=200)
+                    {
+                        $this->clientLog->log(LogType::LOG,$options['base_uri'].$url.'请求失败'."\n".'error code : '.$code."\n".'content : '.$response->getReasonPhrase());
+                    }
+                }
             } catch (\Exception $e) {
 
                 $this->clientLog->log(LogType::ERROR, 'consul uri:' . $options['base_uri'] . $url . " 访问失败！\n" . $e->getMessage());
