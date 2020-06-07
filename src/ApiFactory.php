@@ -2,8 +2,8 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 23:01:03
- * @LastEditTime: 2020-06-07 10:31:02
- * @FilePath: /easy-consul/src/ApiFactory.php
+ * @LastEditTime: 2020-06-07 15:48:57
+ * @FilePath: /src/ApiFactory.php
  */ 
 
 namespace Easy\Consul;
@@ -38,7 +38,12 @@ class ApiFactory
 
     public function __construct($cfg, ConfigObserver $observer = null, $log = null, $options = [])
     {
-        $config = ApiConfig::getInstance($cfg);
+        if(is_array($cfg))
+        {
+            $config = ApiConfig::getInstance($cfg);
+        }else{
+            $config=$cfg;
+        }
 
         if ($observer != null) {
             $config->attach($observer);
