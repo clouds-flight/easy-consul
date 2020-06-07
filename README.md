@@ -77,7 +77,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
     $kvHelper->put();  //更新
     $kvHelper->delete(); //删除
      
-  4.锁
+  4.分布式锁
   
     $lock = new LockHelper('test-lock', '1', '10s', []);  参数：$key,$vaule,$ttl(有效时间,字符串),$checks(健康检查id集合)
     $lock->lock(); //锁
