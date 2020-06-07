@@ -47,25 +47,27 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
      new ApiFactory($config,new Observer());
      
      
- 2.服务注册/发现
-    $service=new ServiceHelper();
-    $service->id="test-server-1";
-    $service->name="test-server";
-    $service->address="127.0.0.1"; //服务ip地址
-    $service->port=8000;  //服务端口
-    $service->enableTagOverride=false;
-    $service->check=[//健康检查
-       'interval' => '3s', //健康检查间隔时间，每隔10s，调用一次上面的URL
-       'timeout'  => '1s',
-       'tcp' =>"127.0.0.1:80" 
-    ];
-    $service->register(); //注册服务
-    $service->healthServiceByName(); //通过服务名称获取健康服务集合，只需设置name就可调用
-    $service->service(); //通过服务id查找服务，只需设置id就可调用
-    $service->services(); //所有服务，创建对象就可调用(可选参数filter，过滤服务，详情查看consul api 文档：https://www.consul.io/api-docs/agent/service)
-    $service->deregister(); //取消注册，只需设置id就可调用
+  2.服务注册与发现
+  
+     $service=new ServiceHelper();
+     $service->id="test-server-1";
+     $service->name="test-server";
+     $service->address="127.0.0.1"; //服务ip地址
+     $service->port=8000;  //服务端口
+     $service->enableTagOverride=false;
+     $service->check=[//健康检查
+            'interval' => '3s', //健康检查间隔时间，每隔10s，调用一次上面的URL
+            'timeout'  => '1s',
+            'tcp' =>"127.0.0.1:80" 
+     ];
+     $service->register(); //注册服务
+     $service->healthServiceByName(); //通过服务名称获取健康服务集合，只需设置name就可调用
+     $service->service(); //通过服务id查找服务，只需设置id就可调用
+     $service->services(); //所有服务，创建对象就可调用(可选参数filter，过滤服务，详情查看consul api 文档：https://www.consul.io/api-docs/agent/service)
+     $service->deregister(); //取消注册，只需设置id就可调用
      
   3.Kv存储操作
+    
     $kvHelper=new KvHelper();
     $kvHelper->key='test';
     $kvHelper->value='1';
@@ -76,6 +78,7 @@ php封装的consul 完整新版 http api库，便捷的使用服务注册/发现
     $kvHelper->delete(); //删除
      
   4.锁
+  
     $lock = new LockHelper('test-lock', '1', '10s', []);  参数：$key,$vaule,$ttl(有效时间,字符串),$checks(健康检查id集合)
     $lock->lock(); //锁
     $lock->renewLock(); //延长锁时间
