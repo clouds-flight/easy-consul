@@ -17,19 +17,11 @@ class Config  implements ConfigInterface
 
     private $observers = [];
 
-    private $lock_file = "config.lock";
-
     private static $instance = null;
 
-    private function __construct($config, $lock_file = null)
+    private function __construct($config)
     {
         $this->config = $config;
-
-        if (!empty($lock_file)) {
-            $this->lock_file = $lock_file;
-        }
-
-        $this->fp = fopen($this->lock_file, "a+");
     }
 
     public static function getInstance($config, $lock_file = null)
@@ -52,45 +44,24 @@ class Config  implements ConfigInterface
 
     public function set($config)
     {
-        if ($this->getLock()) {
-            $old = $this->config;
-            $this->config = $config;
-            $this->releaseLock();
-            $this->notify($old, $config);
-            return true;
-        }
-        return false;
-    }
-
-    public function getLock()
-    {
-
-        if (flock($this->fp, LOCK_EX)) {  // 进行排它型锁定
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function releaseLock()
-    {
-        flock($this->fp, LOCK_UN);
+  
+        $old = $this->config;
+        $this->config = $config;
+        $this->notify($old, $config);
+           
     }
 
     public function attach(ConfigObserver $observer)
     {
-        $this->getLock();
+
         $this->observers[] = $observer;
         $index = count($this->observers);
-        $this->releaseLock();
         return $index;
     }
 
     public function detach($index)
     {
-        $this->getLock();
         unset($this->observers[$index]);
-        $this->releaseLock();
     }
 
     public function notify($old, $new)
