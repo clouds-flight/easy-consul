@@ -2,7 +2,7 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-07 08:01:28
- * @LastEditTime: 2020-06-10 11:54:24
+ * @LastEditTime: 2020-06-10 11:59:59
  * @FilePath: /pf-connection-server/vendor/clouds-flight/easy-consul/src/helper/LockHelper.php
  */
 
@@ -29,6 +29,11 @@ class LockHelper
         $this->ttl = $ttl;
         $this->sessionId = $session_id;
         $this->checks = $checks;
+    }
+
+    public function getSessionId()
+    {
+        return $this->sessionId;
     }
 
 
