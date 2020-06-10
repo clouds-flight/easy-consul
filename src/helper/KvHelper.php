@@ -2,8 +2,8 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 16:36:42
- * @LastEditTime: 2020-06-07 10:06:04
- * @FilePath: /easy-consul/src/helper/KvHelper.php
+ * @LastEditTime: 2020-06-10 15:41:13
+ * @FilePath: /thinkcmf5_1/vendor/clouds-flight/easy-consul/src/helper/KvHelper.php
  */ 
 
 namespace Easy\Consul\Helper;
@@ -59,8 +59,8 @@ class KvHelper
     {
    
         $options['query'] = $this->encode();
+        $options['body'] = json_encode($this->value);
         $response = $this->kv->putKvRest($this->key, $options);
-
         if (!empty($response)) {
             if ($response->getStatusCode() == 200) {
                 if ($response->getBody() == "true") {
