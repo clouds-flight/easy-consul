@@ -2,8 +2,8 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 10:02:52
- * @LastEditTime: 2020-06-07 09:26:41
- * @FilePath: /easy-consul/src/helper/ServiceHelper.php
+ * @LastEditTime: 2020-06-10 09:17:08
+ * @FilePath: /thinkcmf5_1/vendor/clouds-flight/easy-consul/src/helper/ServiceHelper.php
  */ 
 
 namespace Easy\Consul\Helper;
@@ -81,7 +81,8 @@ class ServiceHelper
     public function healthServiceByName()
     {
         $health = ApiFactory::api('Health');
-        $response = $health->getServiceRest($this->name, null);
+        $options['query']['passing']=true;
+        $response = $health->getServiceRest($this->name, $options);
         if (!empty($response)) {
             if ($response->getStatusCode() == 200) {
                 return json_decode($response->getBody());
