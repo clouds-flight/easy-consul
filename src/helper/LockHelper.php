@@ -31,11 +31,6 @@ class LockHelper
         $this->checks = $checks;
     }
 
-    public function getSessionId()
-    {
-        return $this->sessionId;
-    }
-
 
     public function __destruct()
     {
