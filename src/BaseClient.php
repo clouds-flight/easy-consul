@@ -2,9 +2,9 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-05 19:46:52
- * @LastEditTime: 2020-06-07 16:52:58
- * @FilePath: /easy-consul/src/BaseClient.php
- */ 
+ * @LastEditTime: 2020-06-13 08:42:45
+ * @FilePath: /thinkcmf5_1/vendor/clouds-flight/easy-consul/src/BaseClient.php
+ */
 
 namespace Easy\Consul;
 
@@ -67,38 +67,42 @@ class BaseClient extends GuzzleHttpClient
                             }
 
                             $result = true;
-                        }else{
-                           
-                            $this->clientLog->log(LogType::LOG,$options['base_uri'].$url.'请求失败'."\n".'error code : '.$code."\n".'content : '.$response->getReasonPhrase());
+                        } else {
+                            if ($this->clientLog != null) {
+                                $this->clientLog->log(LogType::LOG, $options['base_uri'] . $url . '请求失败' . "\n" . 'error code : ' . $code . "\n" . 'content : ' . $response->getReasonPhrase());
+                            }
                         }
                         break;
                     }
                 } catch (\Exception $e) {
-
-                    $this->clientLog->log(LogType::WARN, 'consul uri:' . $this->clientConfig->get()[$i]['uri'] . $url . " 访问失败！\n" . $e->getMessage());
+                    if ($this->clientLog != null) {
+                        $this->clientLog->log(LogType::WARN, 'consul uri:' . $this->clientConfig->get()[$i]['uri'] . $url . " 访问失败！\n" . $e->getMessage());
+                    }
                 }
             }
 
             //如果所有consul访问都失败
             if ($i == count($this->clientConfig->get()) - 1 && !$result) {
-
-                $this->clientLog->log(LogType::ERROR, "无可用consul地址!");
+                if ($this->clientLog != null) {
+                    $this->clientLog->log(LogType::ERROR, "无可用consul地址!");
+                }
             }
         } else {
             //指定uri访问
             try {
                 $response = $this->request($method, $url, $options);
-                if(!empty($response))
-                {
-                    $code=$response->getStatusCode();
-                    if($code!=200)
-                    {
-                        $this->clientLog->log(LogType::LOG,$options['base_uri'].$url.'请求失败'."\n".'error code : '.$code."\n".'content : '.$response->getReasonPhrase());
+                if (!empty($response)) {
+                    $code = $response->getStatusCode();
+                    if ($code != 200) {
+                        if ($this->clientLog != null) {
+                            $this->clientLog->log(LogType::LOG, $options['base_uri'] . $url . '请求失败' . "\n" . 'error code : ' . $code . "\n" . 'content : ' . $response->getReasonPhrase());
+                        }
                     }
                 }
             } catch (\Exception $e) {
-
-                $this->clientLog->log(LogType::ERROR, 'consul uri:' . $options['base_uri'] . $url . " 访问失败！\n" . $e->getMessage());
+                if ($this->clientLog != null) {
+                    $this->clientLog->log(LogType::ERROR, 'consul uri:' . $options['base_uri'] . $url . " 访问失败！\n" . $e->getMessage());
+                }
             }
         }
         return $response;

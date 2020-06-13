@@ -2,8 +2,8 @@
 /*
  * @Author: 吴云祥
  * @Date: 2020-06-06 23:01:03
- * @LastEditTime: 2020-06-07 16:14:03
- * @FilePath: /easy-consul/src/ApiFactory.php
+ * @LastEditTime: 2020-06-13 08:43:29
+ * @FilePath: /thinkcmf5_1/vendor/clouds-flight/easy-consul/src/ApiFactory.php
  */ 
 
 namespace Easy\Consul;
@@ -29,10 +29,6 @@ class ApiFactory
 
         if ($observer != null) {
             $config->attach($observer);
-        }
-
-        if ($log == null) {
-            $log = new Log();
         }
 
         self::$client = Client::getInstance($config, $log, $options);
